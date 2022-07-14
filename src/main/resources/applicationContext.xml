@@ -1,13 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- bean definitions here -->
+    <!-- load the property file : sport.properties -->
+    <context:property-placeholder location="classpath:sport.properties"/>
+<!--     <context:property-placeholder location="classpath:sport.properties"/> without classpath and with classpath its still working-->
 
-   <bean id="myCoach" class="com.chad.darby.ioc.springbeans.TrackCoach">
 
-   </bean>
+        <!--define the dependency -->
+        <bean id="myFortuneService" class="com.chad.darby.constructorInjection.HappyFortuneService">
+
+        </bean>
+
+        <!--  singleton  -->
+        <bean id="myCoach" class="com.chad.darby.constructorInjection.TrackCoach" scope="singleton">
+        </bean>
+
+        <!--  prototype  -->
+        <bean id="myCoach" class="com.chad.darby.constructorInjection.TrackCoach" scope="prototype">
+        </bean>
+
+
+
+       <bean id="myCoach" class="com.chad.darby.constructorInjection.TrackCoach">
+           <!--  set up constructor injectiion-->
+           <constructor-arg ref="myFortuneService"/>
+       </bean>
+
+
+    <bean id="myCricketCoach" class="com.chad.darby.setterInjection.CricketCoach">
+        <!-- set up setter injection-->
+        <property name="fortuneService" ref="myFortuneService"/>
+
+        <!-- inject literal values -->
+<!--        <property name="emailAddress" value="boa@gmail.com" />-->
+<!--        <property name="team" value="warlord" />-->
+
+        <!-- injecting values from the property file -->
+        <property name="emailAddress" value="${cwt.email}" />
+        <property name="team" value="${cwt.team}" />
+
+
+    </bean>
+
+
+
+
+
 
 </beans>
