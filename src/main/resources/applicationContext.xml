@@ -17,15 +17,6 @@
 
         </bean>
 
-        <!--  singleton  -->
-        <bean id="myCoach" class="com.chad.darby.constructorInjection.TrackCoach" scope="singleton">
-        </bean>
-
-        <!--  prototype  -->
-        <bean id="myCoach" class="com.chad.darby.constructorInjection.TrackCoach" scope="prototype">
-        </bean>
-
-
 
        <bean id="myCoach" class="com.chad.darby.constructorInjection.TrackCoach">
            <!--  set up constructor injectiion-->
